@@ -16,6 +16,9 @@
   &__img:hover {
     transition-duration: $transition-duration;
     transform: scale(1.5);
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 4px 4px 4px rgba(83, 80, 80, 0.77);
     z-index: 3;
   }
 
