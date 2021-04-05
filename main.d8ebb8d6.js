@@ -117,9 +117,93 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"scripts/main.js":[function(require,module,exports) {
-'use strict';
-},{}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+})({"scripts/functions.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.styleModalWindow = styleModalWindow;
+exports.setEventListener = setEventListener;
+exports.modalDiv = void 0;
+
+var modalDiv = function modalDiv(seconds) {
+  return "\n    <div class=\"form-cover\">\n      <p>\n        Thanks for your click\n      </p>\n      <p>\n        Our operator will call to you\n      </p>\n      <p>\n        This block will be removed after ".concat(seconds, " seconds\n      </p>\n    </div>");
+};
+
+exports.modalDiv = modalDiv;
+
+function styleModalWindow(element, submitEvent) {
+  element.style.width = "".concat(submitEvent.target.clientWidth, "px");
+  element.style.height = "0px";
+  element.style.height = "".concat(submitEvent.target.clientHeight, "px");
+  element.style.position = "absolute";
+  element.style.left = "0px";
+  element.style.top = "0px";
+  element.style.backgroundColor = '#eee';
+  element.style.opacity = '0.9';
+  element.style.color = '#000';
+  element.style.fontSize = '24px';
+  element.style.textAlign = 'center';
+}
+
+function setEventListener(element) {
+  element.addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    if (document.querySelector('.form-cover')) {
+      document.querySelector('.form-cover').remove();
+    }
+
+    element.insertAdjacentHTML('afterbegin', modalDiv(3));
+    var modal = document.querySelector('.form-cover');
+    var secondsToclose = 2;
+    styleModalWindow(modal, event);
+    var interval = setInterval(function () {
+      if (secondsToclose < 1) {
+        clearInterval(interval);
+        modal.remove();
+      }
+
+      modal.innerHTML = modalDiv(secondsToclose);
+      secondsToclose--;
+    }, 1000);
+  });
+}
+},{}],"scripts/main.js":[function(require,module,exports) {
+"use strict";
+
+var _functions = require("./functions.js");
+
+var navList = document.getElementById('nav__list');
+navList.addEventListener('click', function (event) {
+  var id;
+
+  if (event.target.tagName === 'SPAN') {
+    id = event.target.parentNode.getAttribute('data-link');
+  } else {
+    id = event.target.getAttribute('data-link');
+  }
+
+  if (id === 'home') {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+    return;
+  }
+
+  var target = document.querySelector("#".concat(id));
+  target.scrollIntoView({
+    block: 'center',
+    behavior: 'smooth'
+  });
+});
+var consultationForm = document.querySelector('.consultation__form');
+var contactForm = document.querySelector('.contact__form');
+(0, _functions.setEventListener)(consultationForm);
+(0, _functions.setEventListener)(contactForm);
+},{"./functions.js":"scripts/functions.js"}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -147,7 +231,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61885" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55082" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
