@@ -7,3 +7,7 @@
 - layout was implement according to the BEM notation.
 
 - Styles were implemented using Sass
+
+- Smooth scrolling with JS
+
+- modal wrapper to form

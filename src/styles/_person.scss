@@ -11,7 +11,7 @@
   }
 
   &:hover &__photo {
-    border-radius: 5% 5% 25% 25%;
+    border-radius: 0 0 25% 25%;
     transition-duration: 1s;
   }
 
@@ -19,7 +19,6 @@
     transform: scale(1.2);
     transition-duration: scale 1s;
     background-color: #00abef49;
-    border-radius: 20px;
   }
 
   &__name {
@@ -43,7 +42,6 @@
       width: 40px;
       height: 33px;
       background-image: url(../images/quotes.svg);
-      /* background: contain no-repeat center; */
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
